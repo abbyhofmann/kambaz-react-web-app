@@ -6,7 +6,8 @@ import Lab3 from "./Lab3";
 export default function Labs() {
   return (
     <div>
-      <h1>Abigail Hofmann - online section, CRN:  37031</h1>
+      <h2>Abigail Hofmann - online section, CRN:  37031</h2>
+      <a href="https://github.com/abbyhofmann/kambaz-react-web-app" id="wd-github" target="_blank">Link to my repository</a><br/>
       <h1>Labs</h1>
       <TOC />
       <Routes>
