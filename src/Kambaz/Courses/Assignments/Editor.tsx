@@ -1,10 +1,15 @@
+import { Button, Col, FormControl, FormSelect, InputGroup, Row } from "react-bootstrap";
+import { LuCalendarDays } from "react-icons/lu";
+import { IoCloseSharp } from "react-icons/io5";
+
+
 export default function AssignmentEditor() {
     return (
       <div id="wd-assignments-editor">
         <h3>Assignment Name</h3>
-        <input id="wd-name" value="A1 - ENV + HTML" />
-        <br /><br />
-        <textarea id="wd-description">
+        <input id="wd-name" className="form-control" type="text" placeholder="A1" />
+        
+        <textarea className="form-control" id="wd-description" rows={7}>
             The assignment is available online. Submit a link to the landing page of
             your Web application running on Netlify. The landing page should include
             the following: Your full name and section. Links to each of the lab
@@ -12,9 +17,184 @@ export default function AssignmentEditor() {
             code repositories. The Kanbas application should include a link to
             navigate back to the landing page.
         </textarea>
-        <br /><br />
+        <div className="float-end">
+            <Row>
+                <Col>
+                    <label htmlFor="wd-points">Points</label>
+                </Col>
+                <Col>
+                    <input id="wd-points" className="form-control" type="number" value={100} />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                <label htmlFor="wd-group">Assignment Group</label>
+                </Col>
+                <Col>
+                    <FormSelect id="wd-group">
+                        <option selected>ASSIGNMENTS</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </FormSelect>            
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                <label htmlFor="wd-display-grade-as">Display Grade as</label>
+                </Col>
+                <Col>
+                    <FormSelect id="wd-display-grade-as">
+                        <option selected>Percentage</option>
+                        <option value="1">Fraction</option>
+                    </FormSelect>            
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <label htmlFor="wd-submission-type">Submission Type</label>
+                </Col>
+                <Col md={8}>
+                    <div className="border rounded p-3">
+                        <div className="mb-3">
+                            <FormSelect id="wd-submission-type">
+                            <option selected>Online</option>
+                            </FormSelect>
+                        </div>
+                        <div>
+                            <label className="form-label">Online Entry Options</label>
+                            <div className="mt-2">
+                            <div className="form-check">
+                                <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="text-entry"
+                                />
+                                <label className="form-check-label" htmlFor="text-entry">
+                                Text Entry
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="website-url"
+                                checked
+                                />
+                                <label className="form-check-label" htmlFor="website-url">
+                                Website URL
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="media-recordings"
+                                />
+                                <label className="form-check-label" htmlFor="media-recordings">
+                                Media Recordings
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="student-annotation"
+                                />
+                                <label
+                                className="form-check-label"
+                                htmlFor="student-annotation"
+                                >
+                                Student Annotation
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="file-uploads"
+                                />
+                                <label className="form-check-label" htmlFor="file-uploads">
+                                File Uploads
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <label htmlFor="wd-assign-to">Assign</label>
+                    </Col>
+                    <Col>
+                        <div className="border rounded">
+                            <Col>
+                                <Row>
+                                    <Col>
+                                        <label className="form-label">Assign To</label>
+                                        <div className="border">
+                                            <button className="btn btn-light me-1 ">
+                                                Everyone
+                                                <IoCloseSharp className="position-relative me-2 float-end" style={{ bottom: "1px" }}/>
+                                            </button>
+                                        </div>
+                                    </Col>
+                                    <label className="form-label">Due</label>
+                                    <InputGroup>
+                                        <FormControl
+                                            placeholder="May 13, 2024, 11:59 PM"
+                                        />
+                                        <InputGroup.Text id="calendar-icon">
+                                            <LuCalendarDays />
+                                        </InputGroup.Text>
+                                    </InputGroup>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <label htmlFor="wd-available-from">Available from</label>
+                                        <InputGroup>
+                                            <FormControl
+                                                placeholder="May 6, 2024, 12:00 AM"
+                                            />
+                                            <InputGroup.Text id="calendar-icon">
+                                                <LuCalendarDays />
+                                            </InputGroup.Text>
+                                        </InputGroup>
+                                    </Col>
+                                    <Col>
+                                        <label htmlFor="wd-available-until">Until</label>
+                                        <InputGroup>
+                                            <FormControl
+                                                placeholder="Select a date..."
+                                            />
+                                            <InputGroup.Text id="calendar-icon">
+                                                <LuCalendarDays />
+                                            </InputGroup.Text>
+                                        </InputGroup>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </div>
+                    </Col>
+                </Row>
 
-        <table>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <button id="wd-add-assignment-btn" className="btn btn-outline-dark btn-lg btn-light me-1 float-end">
+                        Cancel
+                    </button>
+                    <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger me-1 float-end">
+                        Save
+                    </button>
+                </div>
+        </div>
+        
+        
+
+
+
+        {/* <table>
           <tr>
             <td align="right" valign="top">
               <label htmlFor="wd-points">Points</label>
@@ -118,7 +298,7 @@ export default function AssignmentEditor() {
                     <button>Save</button>
                 </td>
             </tr>
-        </table>
+        </table> */}
 
         
       </div>

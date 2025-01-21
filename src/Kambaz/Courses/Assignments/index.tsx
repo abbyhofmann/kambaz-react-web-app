@@ -1,8 +1,6 @@
 import { BsGripVertical } from "react-icons/bs";
 import AssignmentsControls from "./AssignmentsControls";
-import ModuleControlButtons from "../Modules/ModuleControlButtons";
 import LessonControlButtons from "../Modules/LessonControlButtons";
-import { FaPlus } from "react-icons/fa";
 import { PiNotePencilBold } from "react-icons/pi";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { Link } from "react-router";
