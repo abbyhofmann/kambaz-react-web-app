@@ -12,12 +12,12 @@ export default function CourseStatus() {
       <h2>Course Status</h2>
       <div className="d-flex">
         <div className="w-50 pe-1">
-          <button className="btn btn-lg btn-secondary w-100 text-nowrap ">
-            <MdDoNotDisturbAlt className="me-2 fs-5" /> Unpublish </button>
+          <button className="btn btn-lg btn-secondary w-100 text-nowrap d-flex align-items-center justify-content-between">
+            <MdDoNotDisturbAlt className="fs-5" /> Unpublish </button>
         </div>
         <div className="w-50">
-          <button className="btn btn-lg btn-success w-100">
-            <FaCheckCircle className="me-2 fs-5" /> Publish </button>
+          <button className="btn btn-lg btn-success w-100 d-flex align-items-center justify-content-between">
+            <FaCheckCircle className="me-2 fs-5" /> Published </button>
         </div>
       </div><br />
       <button className="btn btn-lg btn-secondary w-100 mt-1 text-start">
