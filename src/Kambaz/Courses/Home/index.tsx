@@ -3,7 +3,7 @@ import CourseStatus from "./Status";
 
 export default function Home() {
   return (
-    <div className="d-flex" id="wd-home">
+    <div className="d-flex flex-wrap" id="wd-home">
         <div className="flex-fill me-4">
         <Modules />
         </div>
