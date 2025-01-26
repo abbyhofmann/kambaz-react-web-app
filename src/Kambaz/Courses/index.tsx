@@ -26,7 +26,7 @@ export default function Courses() {
             </h2>
             <hr />
             <div
-                className="offcanvas offcanvas-start"
+                className="offcanvas offcanvas-start d-md-none"
                 tabIndex={-1}
                 id="nav-sidebarOffcanvas"
                 aria-labelledby="nav-sidebarOffcanvasLabel"
@@ -52,7 +52,7 @@ export default function Courses() {
                 </div>
             </div>
             <div className="d-flex">
-                <div className="offcanvas-body">
+                <div className="d-none d-md-block">
                     <CourseNavigation />
                 </div>
                 <div className="flex-fill">
