@@ -8,6 +8,8 @@ import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
 import KambazOffcanvasNavigation from "../KambazOffcanvasNavigation";
 import { SiCanvas } from "react-icons/si";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import CoursesDropdown from "./CoursesDropdown";
 
 export default function Courses() {
     return (
@@ -23,8 +25,22 @@ export default function Courses() {
                     aria-controls="nav-sidebarOffcanvas"
                 />
                 Course 1234
+                <div className="dropdown d-md-none float-end">
+                    <RiArrowDropDownLine
+                        className="text-danger mb-1 fs-1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    />
+                    {/* Dropdown menu */}
+                    <CoursesDropdown />
+                </div>
             </h2>
             <hr />
+            {/* the dropdown course nav is only available by clicking the down arrow button when screen is minimized */}
+
+            <CoursesDropdown />
+
+            {/* the offcanvas nav page is only available by clicking the FaAlignJustify button when the screen is minimized */}
             <div
                 className="offcanvas offcanvas-start d-md-none"
                 tabIndex={-1}
