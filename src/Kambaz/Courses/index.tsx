@@ -14,31 +14,33 @@ import CoursesDropdown from "./CoursesDropdown";
 export default function Courses() {
     return (
         <div id="wd-courses">
-            <h2 className="text-danger">
-                {/* <FaAlignJustify className="me-4 fs-4 mb-1" 
-        data-bs-toggle="collapse"
-        data-bs-target="#sidebar"/> */}
+            <h2 className="text-white bg-dark d-md-none d-flex align-items-center justify-content-between">
                 <FaAlignJustify
-                    className="me-4 fs-4 mb-1"
+                    className="me-4 fs-4 mb-1 ms-1 float-start"
                     data-bs-toggle="offcanvas"
                     data-bs-target="#nav-sidebarOffcanvas"
                     aria-controls="nav-sidebarOffcanvas"
                 />
-                Course 1234
+                <div className="container-row text-center">
+                    <p className="text-uppercase fs-4 mt-2 mb-0">Course 1234 </p>
+                    <p className="text-uppercase fs-6 mb-2">modules </p>
+                </div>
                 <div className="dropdown d-md-none float-end">
                     <RiArrowDropDownLine
-                        className="text-danger mb-1 fs-1"
+                        className="text-white mb-1 fs-1"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                     />
-                    {/* Dropdown menu */}
                     <CoursesDropdown />
                 </div>
             </h2>
+            <h2 className="text-danger d-none d-md-block">
+                <FaAlignJustify
+                    className="me-4 fs-4 mb-1"
+                />
+                Course 1234
+            </h2>
             <hr />
-            {/* the dropdown course nav is only available by clicking the down arrow button when screen is minimized */}
-
-            <CoursesDropdown />
 
             {/* the offcanvas nav page is only available by clicking the FaAlignJustify button when the screen is minimized */}
             <div
@@ -67,6 +69,7 @@ export default function Courses() {
                     <KambazOffcanvasNavigation />
                 </div>
             </div>
+
             <div className="d-flex">
                 <div className="d-none d-md-block">
                     <CourseNavigation />
