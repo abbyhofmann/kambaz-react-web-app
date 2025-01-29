@@ -166,6 +166,7 @@ export default function AssignmentEditor() {
                                     <InputGroup>
                                         <FormControl
                                             placeholder="May 6, 2024, 12:00 AM"
+                                            type="date"
                                         />
                                         <InputGroup.Text id="calendar-icon">
                                             <LuCalendarDays />
@@ -177,6 +178,7 @@ export default function AssignmentEditor() {
                                     <InputGroup>
                                         <FormControl
                                             placeholder="Select a date..."
+                                            type="date"
                                         />
                                         <InputGroup.Text id="calendar-icon">
                                             <LuCalendarDays />
@@ -195,14 +197,14 @@ export default function AssignmentEditor() {
             </Row>
             <Row className="me-5 float-end">
                 <Col>
-                <button id="wd-add-assignment-btn" className="btn btn-outline-dark btn-lg btn-light">
-                    Cancel
-                </button>
+                    <button id="wd-add-assignment-btn" className="btn btn-outline-dark btn-lg btn-light">
+                        Cancel
+                    </button>
                 </Col>
                 <Col>
-                <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger">
-                    Save
-                </button>
+                    <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger">
+                        Save
+                    </button>
                 </Col>
             </Row>
         </div>

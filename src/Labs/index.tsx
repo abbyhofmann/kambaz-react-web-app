@@ -5,7 +5,7 @@ import Lab2 from "./Lab2";
 import Lab3 from "./Lab3";
 export default function Labs() {
   return (
-    <div>
+    <div className="p-2">
       <h2>Abigail Hofmann - online section, CRN:  37031</h2>
       <a href="https://github.com/abbyhofmann/kambaz-react-web-app" id="wd-github" target="_blank">Link to my repository</a><br/>
       <h1>Labs</h1>

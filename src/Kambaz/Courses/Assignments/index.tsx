@@ -9,7 +9,7 @@ export default function Assignments() {
     return (
       <div>
         <AssignmentsControls /><br /><br /><br /><br />
-        <ul id="wd-assignments" className="list-group rounded-0">
+        <ul id="wd-assignments" className="list-group rounded-0 p-3">
           <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
             <div className="wd-title p-3 ps-2 bg-light">
                 <BsGripVertical className="me-2 fs-3" />

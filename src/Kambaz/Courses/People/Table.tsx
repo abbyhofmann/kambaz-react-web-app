@@ -1,7 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 export default function PeopleTable() {
  return (
-  <div id="wd-people-table">
+  <div id="wd-people-table" className="p-3">
    <table className="table table-striped">
     <thead>
      <tr><th>Name</th><th>Login ID</th><th>Section</th><th>Role</th><th>Last Activity</th><th>Total Activity</th></tr>
@@ -47,6 +47,26 @@ export default function PeopleTable() {
         <td className="wd-role">TA</td>
         <td className="wd-last-activity">2020-11-05</td>
         <td className="wd-total-activity">13:23:34</td> 
+      </tr>
+      <tr><td className="wd-full-name text-nowrap">
+        <FaUserCircle className="me-2 fs-1 text-secondary" />
+        <span className="wd-first-name">Thor</span>{" "}
+        <span className="wd-last-name">Odinson</span></td>
+        <td className="wd-login-id">001234564S</td>
+        <td className="wd-section">S101</td>
+        <td className="wd-role">STUDENT</td>
+        <td className="wd-last-activity">2020-12-01</td>
+        <td className="wd-total-activity">11:22:33</td> 
+      </tr>
+      <tr><td className="wd-full-name text-nowrap">
+        <FaUserCircle className="me-2 fs-1 text-secondary" />
+        <span className="wd-first-name">Bruce</span>{" "}
+        <span className="wd-last-name">Banner</span></td>
+        <td className="wd-login-id">001234564S</td>
+        <td className="wd-section">S101</td>
+        <td className="wd-role">STUDENT</td>
+        <td className="wd-last-activity">2020-12-01</td>
+        <td className="wd-total-activity">22:33:44</td> 
       </tr>
     </tbody>
    </table>
