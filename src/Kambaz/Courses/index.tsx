@@ -20,7 +20,7 @@ export default function Courses() {
                 />
                 <text className="fs-3 text-uppercase">Course 1234 </text>
             </nav>
-            <hr />
+            <hr className="me-2"/>
 
             <div className="d-flex">
                 <div className="d-none d-md-block">

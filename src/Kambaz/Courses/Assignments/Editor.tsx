@@ -195,7 +195,7 @@ export default function AssignmentEditor() {
             <Row className="px-5">
                 <hr className="w-100" />
             </Row>
-            <Row className="me-5 float-end">
+            <Row className="me-5 float-end mb-2">
                 <Col>
                     <button id="wd-add-assignment-btn" className="btn btn-outline-dark btn-lg btn-light">
                         Cancel
