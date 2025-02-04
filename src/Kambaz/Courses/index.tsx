@@ -16,7 +16,7 @@ export default function Courses() {
     return (
         <div id="wd-courses">
             {/* Navbar for when screen is minimized */}
-            <DarkNavbar />
+            <DarkNavbar course={course}/>
 
             {/* Navbar for when screen is maximized */}
             <nav className="navbar text-danger d-none d-md-block">

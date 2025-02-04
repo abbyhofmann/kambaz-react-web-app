@@ -5,7 +5,12 @@ import { Link } from "react-router";
 import KambazOffcanvasNavigation from "../KambazOffcanvasNavigation";
 import CoursesDropdown from "./CoursesDropdown";
 
-export default function DarkNavbar() {
+interface DarkNavbarProps {
+    course: any;
+}
+
+export default function DarkNavbar(props: DarkNavbarProps) {
+    const { course } = props; 
     return (
         <div>
             <nav className="navbar text-white bg-dark d-md-none d-flex align-items-center justify-content-between">
@@ -16,7 +21,7 @@ export default function DarkNavbar() {
                     aria-controls="nav-sidebarOffcanvas"
                 />
                 <div className="container-row text-center">
-                    <p className="text-uppercase fs-4 mt-2 mb-0">Course 1234 </p>
+                    <p className="text-uppercase fs-4 mt-2 mb-0">{course && course.name}</p>
                     <p className="text-uppercase fs-6 mb-2">modules </p>
                 </div>
                 <RiArrowDropDownLine
