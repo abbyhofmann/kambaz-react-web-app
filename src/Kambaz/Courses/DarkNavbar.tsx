@@ -10,7 +10,7 @@ interface DarkNavbarProps {
 }
 
 export default function DarkNavbar(props: DarkNavbarProps) {
-    const { course } = props; 
+    const { course } = props;
     return (
         <div>
             <nav className="navbar text-white bg-dark d-md-none d-flex align-items-center justify-content-between">
