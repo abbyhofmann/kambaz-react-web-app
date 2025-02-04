@@ -1,7 +1,7 @@
 import { courses } from "../Database";
 import Modules from "./Modules";
 import CourseNavigation from "./Navigation";
-import { Route, Routes, useParams } from "react-router";
+import { Route, Routes, useLocation, useParams } from "react-router";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
@@ -11,6 +11,7 @@ import DarkNavbar from "./DarkNavbar";
 export default function Courses() {
     const { cid } = useParams();
     const course = courses.find((course) => course._id === cid);
+    const { pathname } = useLocation();
 
     return (
         <div id="wd-courses">
@@ -22,7 +23,7 @@ export default function Courses() {
                 <FaAlignJustify
                     className="me-4 fs-4 mb-1"
                 />
-                <text className="fs-3 text-uppercase">{course && course.name}</text>
+                <text className="fs-3 text-uppercase">{course && course.name} &gt; {pathname.split("/")[4]}</text>
             </nav>
             <hr className="me-2"/>
 
