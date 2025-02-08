@@ -8,4 +8,5 @@
   { "_id": "A301", "title": "Structural Design Task", "course": "RS103", "description": "Group design project involving mock-ups, testing, and presentation.", "points": 150, "dueDate": "2025-02-01", "availableDate": "2025-01-25" },
   { "_id": "A302", "title": "Orbital Calculations", "course": "RS103", "description": "Orbital calculations problem set.", "points": 55, "dueDate": "2025-02-01", "availableDate": "2025-01-25" },
   { "_id": "A303", "title": "Systems Engineering Exam", "course": "RS103", "description": "Multiple choice and short answer written exam.", "points": 100, "dueDate": "2025-02-01", "availableDate": "2025-01-25" }
+  
 ]
