@@ -1,9 +1,13 @@
 import { Col, FormControl, FormSelect, InputGroup, Row } from "react-bootstrap";
 import { LuCalendarDays } from "react-icons/lu";
 import { IoCloseSharp } from "react-icons/io5";
+import { Link, useParams } from "react-router";
+import { assignments } from "../../Database";
 
 
 export default function AssignmentEditor() {
+    const { cid, aid } = useParams();
+    const retrievedAssignment = assignments.find((assignment: any) => assignment._id === aid);
     return (
         <div id="wd-assignments-editor">
             <Row className="px-4">
@@ -11,16 +15,11 @@ export default function AssignmentEditor() {
                     <label>Assignment Name</label>
                 </Row>
                 <Row className="mb-4">
-                    <input id="wd-name" className="form-control" type="text" placeholder="A1" />
+                    <input id="wd-name" className="form-control" type="text" placeholder={`${retrievedAssignment?.title}`} />
                 </Row>
                 <Row>
                     <textarea className="form-control" id="wd-description" rows={7}>
-                        The assignment is available online. Submit a link to the landing page of
-                        your Web application running on Netlify. The landing page should include
-                        the following: Your full name and section. Links to each of the lab
-                        assignments. Link to the Kanbas application. Links to all relevant source
-                        code repositories. The Kanbas application should include a link to
-                        navigate back to the landing page.
+                        {`${retrievedAssignment?.description}`}
                     </textarea>
                 </Row>
             </Row>
@@ -32,7 +31,7 @@ export default function AssignmentEditor() {
                         <label htmlFor="wd-points">Points</label>
                     </Col>
                     <Col md={8} >
-                        <input id="wd-points" className="form-control" type="number" value={100} />
+                        <input id="wd-points" className="form-control" type="number" value={retrievedAssignment?.points} />
                     </Col>
                 </Row>
                 <Row className="m-4">
@@ -153,11 +152,9 @@ export default function AssignmentEditor() {
                                 <label className="form-label fw-bold">Due</label>
                                 <InputGroup>
                                     <FormControl
-                                        placeholder="May 13, 2024, 11:59 PM"
+                                        value={`${retrievedAssignment?.dueDate}`}
+                                        type="date"
                                     />
-                                    <InputGroup.Text id="calendar-icon">
-                                        <LuCalendarDays />
-                                    </InputGroup.Text>
                                 </InputGroup>
                             </Row>
                             <Row className="mb-3">
@@ -165,24 +162,18 @@ export default function AssignmentEditor() {
                                     <label htmlFor="wd-available-from" className="fw-bold">Available from</label>
                                     <InputGroup>
                                         <FormControl
-                                            placeholder="May 6, 2024, 12:00 AM"
+                                            value={`${retrievedAssignment?.availableDate}`}
                                             type="date"
                                         />
-                                        <InputGroup.Text id="calendar-icon">
-                                            <LuCalendarDays />
-                                        </InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                                 <Col>
                                     <label htmlFor="wd-available-until" className="fw-bold">Until</label>
                                     <InputGroup>
                                         <FormControl
-                                            placeholder="Select a date..."
+                                            value={`${retrievedAssignment?.dueDate}`}
                                             type="date"
                                         />
-                                        <InputGroup.Text id="calendar-icon">
-                                            <LuCalendarDays />
-                                        </InputGroup.Text>
                                     </InputGroup>
                                 </Col>
                             </Row>
@@ -197,14 +188,18 @@ export default function AssignmentEditor() {
             </Row>
             <Row className="me-5 float-end mb-2">
                 <Col>
-                    <button id="wd-add-assignment-btn" className="btn btn-outline-dark btn-lg btn-light">
-                        Cancel
-                    </button>
+                    <Link to={`../Assignments`}>
+                        <button id="wd-add-assignment-btn" className="btn btn-outline-dark btn-lg btn-light">
+                            Cancel
+                        </button>
+                    </Link>
                 </Col>
                 <Col>
-                    <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger">
-                        Save
-                    </button>
+                    <Link to={`../Assignments`}>
+                        <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger">
+                            Save
+                        </button>
+                    </Link>
                 </Col>
             </Row>
         </div>
