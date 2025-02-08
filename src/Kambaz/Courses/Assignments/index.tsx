@@ -26,7 +26,7 @@ export default function Assignments() {
 
 
                 <li className="wd-lesson list-group-item p-3 ps-1 d-flex align-items-center">
-                  <Link to={`${cid}/${assignment.id}`} className="text-decoration-none text-dark align-items-center d-flex">
+                  <Link to={`${cid}/${assignment._id}`} className="text-decoration-none text-dark align-items-center d-flex">
                     <div className="d-flex align-items-center me-2">
                       <BsGripVertical className="me-2 fs-3" />
                       <PiNotePencilBold className="fs-4 text-success me-2" />
