@@ -23,7 +23,7 @@ export default function Courses() {
                 <FaAlignJustify
                     className="me-4 fs-4 mb-1"
                 />
-                <text className="fs-3 text-uppercase">{course && course.name} &gt; {pathname.split("/")[4]}</text>
+                <text className="fs-3">{course && course.name} &gt; {pathname.split("/")[4]}</text>
             </nav>
             <hr className="me-2"/>
 
