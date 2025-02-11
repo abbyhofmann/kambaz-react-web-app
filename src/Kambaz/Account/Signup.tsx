@@ -14,7 +14,7 @@ export default function Signup() {
              placeholder="verify password" type="password"
              className="mb-2"/>
       <Link id="wd-signup-btn"
-            to="/Kambaz/Account/Profile"
+            to="/Kambaz/Dashboard"
             className="btn btn-primary w-100 mb-2">
             Sign up </Link>
       <Link  to="/Kambaz/Account/Signin" >Sign in</Link>
