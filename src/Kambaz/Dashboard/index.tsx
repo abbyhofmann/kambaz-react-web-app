@@ -11,8 +11,8 @@ export default function Dashboard() {
             <div id="wd-dashboard-courses">
                 <Row xs={1} md={5} className="g-4">
                     {courses.map((course) => (
-                        <Col className="wd-dashboard-course" style={{ width: "300px" }}>
-                            <Card>
+                        <Col className="wd-dashboard-course d-flex" style={{ width: "300px" }}>
+                            <Card  className="d-flex flex-column h-100">
                                 <Link to={`/Kambaz/Courses/${course._id}/Home`}
                                     className="wd-dashboard-course-link text-decoration-none text-dark" >
                                     <img
