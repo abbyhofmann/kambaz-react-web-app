@@ -12,20 +12,30 @@ export default function Dashboard() {
                 <Row xs={1} md={5} className="g-4">
                     {courses.map((course) => (
                         <Col className="wd-dashboard-course d-flex" style={{ width: "300px" }}>
-                            <Card  className="d-flex flex-column h-100">
+                            <Card className="d-flex flex-column h-100">
                                 <Link to={`/Kambaz/Courses/${course._id}/Home`}
                                     className="wd-dashboard-course-link text-decoration-none text-dark" >
                                     <img
                                         src={`${course._id.toString().charAt(3) === "0"
-                                                ? `images/${course._id}.jpeg`
-                                                : `images/neu.jpeg`
+                                            ? `images/${course._id}.jpeg`
+                                            : `images/neu.jpeg`
                                             }`}
                                         width="100%"
                                         height={160}
                                     />
                                     <div className="card-body">
-                                        <h5 className="wd-dashboard-course-title card-title">
-                                            {course.name} </h5>
+                                        <h5
+                                            className="wd-dashboard-course-title card-title text-truncate"
+                                            style={{
+                                                whiteSpace: "nowrap",
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                                width: "100%",
+                                                display: "block"
+                                            }}
+                                        >
+                                            {course.name}
+                                        </h5>
                                         <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                                             {course.description} </p>
                                         <button className="btn btn-primary"> Go </button>
