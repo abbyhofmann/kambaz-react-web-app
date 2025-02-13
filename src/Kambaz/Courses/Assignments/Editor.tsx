@@ -1,12 +1,11 @@
 import { Col, FormControl, FormSelect, InputGroup, Row } from "react-bootstrap";
-import { LuCalendarDays } from "react-icons/lu";
 import { IoCloseSharp } from "react-icons/io5";
 import { Link, useParams } from "react-router";
 import { assignments } from "../../Database";
 
 
 export default function AssignmentEditor() {
-    const { cid, aid } = useParams();
+    const { aid } = useParams();
     const retrievedAssignment = assignments.find((assignment: any) => assignment._id === aid);
     return (
         <div id="wd-assignments-editor">
