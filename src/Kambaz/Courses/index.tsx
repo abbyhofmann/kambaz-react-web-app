@@ -1,4 +1,3 @@
-import { courses } from "../Database";
 import Modules from "./Modules";
 import CourseNavigation from "./Navigation";
 import { Route, Routes, useLocation, useParams } from "react-router";
@@ -8,7 +7,8 @@ import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
 import DarkNavbar from "./DarkNavbar";
-export default function Courses() {
+
+export default function Courses({ courses }: { courses: any[] }) {
     const { cid } = useParams();
     const course = courses.find((course) => course._id === cid);
     const { pathname } = useLocation();
@@ -16,7 +16,7 @@ export default function Courses() {
     return (
         <div id="wd-courses">
             {/* Navbar for when screen is minimized */}
-            <DarkNavbar course={course}/>
+            <DarkNavbar course={course} />
 
             {/* Navbar for when screen is maximized */}
             <nav className="navbar text-danger d-none d-md-block">
@@ -25,7 +25,7 @@ export default function Courses() {
                 />
                 <text className="fs-3">{course && course.name} &gt; {pathname.split("/")[4]}</text>
             </nav>
-            <hr className="me-2"/>
+            <hr className="me-2" />
 
             <div className="d-flex">
                 <div className="d-none d-md-block">
