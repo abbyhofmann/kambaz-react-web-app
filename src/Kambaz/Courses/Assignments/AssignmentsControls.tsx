@@ -1,9 +1,12 @@
 import { FaSearch } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
 
 export default function AssignmentsControls() {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const navigate = useNavigate(); 
+    const { cid } = useParams();
 
     return (
         <div id="wd-assignments-controls" className="d-flex align-items-center float-end">
@@ -27,7 +30,7 @@ export default function AssignmentsControls() {
                 </button>}
             {/* + assignment button */}
             {currentUser.role === "FACULTY" &&
-                <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger me-1 float-end">
+                <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger me-1 float-end" onClick={() => navigate(`/Kambaz/Courses/${cid}/Assignments/new`)}>
                     <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
                     Assignment
                 </button>}

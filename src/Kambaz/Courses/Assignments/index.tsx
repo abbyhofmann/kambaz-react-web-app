@@ -1,4 +1,3 @@
-import { assignments } from "../../Database";
 import { BsGripVertical } from "react-icons/bs";
 import AssignmentsControls from "./AssignmentsControls";
 import LessonControlButtons from "../Modules/LessonControlButtons";
@@ -10,10 +9,11 @@ import { useSelector } from "react-redux";
 export default function Assignments() {
   const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
 
   return (
     <div>
-      <AssignmentsControls /><br /><br /><br /><br />
+      <AssignmentsControls/><br /><br /><br /><br />
       <ul id="wd-assignments" className="list-group rounded-0 p-3">
         {currentUser.role == "FACULTY" &&
           <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
