@@ -1,7 +1,10 @@
 import { FaSearch } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 export default function AssignmentsControls() {
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
+
     return (
         <div id="wd-assignments-controls" className="d-flex align-items-center float-end">
             {/* search bar */}
@@ -17,15 +20,17 @@ export default function AssignmentsControls() {
                 />
             </div>
             {/* + group button */}
-            <button id="wd-add-group-btn" className="btn btn-lg btn-secondary me-1">
-                <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-                Group
-            </button>
+            {currentUser.role === "FACULTY" &&
+                <button id="wd-add-group-btn" className="btn btn-lg btn-secondary me-1">
+                    <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+                    Group
+                </button>}
             {/* + assignment button */}
-            <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger me-1 float-end">
-                <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-                Assignment
-            </button>
+            {currentUser.role === "FACULTY" &&
+                <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger me-1 float-end">
+                    <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+                    Assignment
+                </button>}
         </div>
     )
 }

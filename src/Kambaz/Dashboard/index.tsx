@@ -16,7 +16,7 @@ export default function Dashboard(
     return (
         <div id="wd-dashboard" className="p-2">
             <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
-            {currentUser.role == "FACULTY" &&
+            {currentUser.role === "FACULTY" &&
                 <div>
                     <h5>New Course
                         <button className="btn btn-primary float-end"
@@ -71,7 +71,7 @@ export default function Dashboard(
                                             <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                                                 {course.description} </p>
                                             <button className="btn btn-primary"> Go </button>
-                                            {currentUser.role == "FACULTY" &&
+                                            {currentUser.role === "FACULTY" &&
                                                 <button onClick={(event) => {
                                                     event.preventDefault();
                                                     deleteCourse(course._id);
@@ -79,7 +79,7 @@ export default function Dashboard(
                                                     id="wd-delete-course-click">
                                                     Delete
                                                 </button>}
-                                            {currentUser.role == "FACULTY" &&
+                                            {currentUser.role === "FACULTY" &&
                                                 <button id="wd-edit-course-click"
                                                     onClick={(event) => {
                                                         event.preventDefault();
