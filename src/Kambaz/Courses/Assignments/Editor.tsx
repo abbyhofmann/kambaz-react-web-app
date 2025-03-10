@@ -15,13 +15,12 @@ export default function AssignmentEditor() {
     (assignment: any) => assignment._id === aid
   );
 
-
   const initAssignment = retrievedAssignment || {
     _id: `A${Date.now()}`, // TODO - unique ID for new assignment
     title: "",
     course: cid!,
     description: "",
-    points: 100,
+    points: "",
     dueDate: "",
     availableDate: "",
   };
@@ -82,7 +81,7 @@ export default function AssignmentEditor() {
           </Col>
           <Col md={8}>
             <input
-              name="point"
+              name="points"
               id="wd-points"
               className="form-control"
               type="number"
@@ -246,7 +245,7 @@ export default function AssignmentEditor() {
                   </label>
                   <InputGroup>
                     <FormControl
-                      name="availableUntil"
+                      name="dueDate"
                       value={`${assignment.dueDate}`}
                       type="date"
                       onChange={handleChange}
@@ -288,148 +287,3 @@ export default function AssignmentEditor() {
     </div>
   );
 }
-
-// export default function AssignmentEditor() {
-//     const { aid, cid } = useParams();
-//     const navigate = useNavigate();
-
-//     // If editing, load existing assignment; else, create a blank one
-//     const existingAssignment = assignments.find((a) => a._id === aid);
-
-//     const [assignment, setAssignment] = useState(
-//         existingAssignment || {
-//             _id: `A${Date.now()}`, // Unique ID for new assignment
-//             title: "",
-//             description: "",
-//             points: 100,
-//             dueDate: "",
-//             availableFrom: "",
-//             availableUntil: ""
-//         }
-//     );
-
-//     const handleChange = (e: any) => {
-//         setAssignment({ ...assignment, [e.target.name]: e.target.value });
-//     };
-
-//     const handleSave = () => {
-//         if (!existingAssignment) {
-//             assignments.push(assignment); // Add to array if new
-//         }
-//         navigate(`/Kambaz/Courses/${cid}/Assignments`); // Navigate back
-//     };
-
-//     return (
-//         <div id="wd-assignments-editor">
-//             <Row className="px-4">
-//                 <Row className="mb-2 text-start">
-//                     <label>Assignment Name</label>
-//                 </Row>
-//                 <Row className="mb-4">
-//                     <input
-//                         name="title"
-//                         className="form-control"
-//                         type="text"
-//                         placeholder="Enter assignment name"
-//                         value={assignment.title}
-//                         onChange={handleChange}
-//                     />
-//                 </Row>
-//                 <Row>
-//                     <textarea
-//                         name="description"
-//                         className="form-control"
-//                         rows={7}
-//                         placeholder="Enter description"
-//                         value={assignment.description}
-//                         onChange={handleChange}
-//                     />
-//                 </Row>
-//             </Row>
-
-//             {/* Assignment Details */}
-//             <Row className="float-end me-5">
-//                 <Row className="m-4">
-//                     <Col className="text-end">
-//                         <label>Points</label>
-//                     </Col>
-//                     <Col md={8}>
-//                         <input
-//                             name="points"
-//                             className="form-control"
-//                             type="number"
-//                             value={assignment.points}
-//                             onChange={handleChange}
-//                         />
-//                     </Col>
-//                 </Row>
-
-//                 {/* Due Dates */}
-//                 <Row className="m-4">
-//                     <Col className="text-end">
-//                         <label>Due Date</label>
-//                     </Col>
-//                     <Col md={8}>
-//                         <InputGroup>
-//                             <FormControl
-//                                 name="dueDate"
-//                                 type="date"
-//                                 value={assignment.dueDate}
-//                                 onChange={handleChange}
-//                             />
-//                         </InputGroup>
-//                     </Col>
-//                 </Row>
-
-//                 <Row className="m-4">
-//                     <Col className="text-end">
-//                         <label>Available From</label>
-//                     </Col>
-//                     <Col md={8}>
-//                         <InputGroup>
-//                             <FormControl
-//                                 name="availableFrom"
-//                                 type="date"
-//                                 value={assignment.availableFrom}
-//                                 onChange={handleChange}
-//                             />
-//                         </InputGroup>
-//                     </Col>
-//                 </Row>
-
-//                 <Row className="m-4">
-//                     <Col className="text-end">
-//                         <label>Available Until</label>
-//                     </Col>
-//                     <Col md={8}>
-//                         <InputGroup>
-//                             <FormControl
-//                                 name="availableUntil"
-//                                 type="date"
-//                                 value={assignment.availableUntil}
-//                                 onChange={handleChange}
-//                             />
-//                         </InputGroup>
-//                     </Col>
-//                 </Row>
-//             </Row>
-
-//             {/* Buttons */}
-//             <Row className="px-5">
-//                 <hr className="w-100" />
-//             </Row>
-//             <Row className="me-5 float-end mb-2">
-//                 <Col>
-//                     <button className="btn btn-outline-dark btn-lg btn-light" onClick={() => navigate(`/Kambaz/Courses/${cid}/Assignments`)}>
-//                         Cancel
-//                     </button>
-//                 </Col>
-//                 <Col>
-//                     <button className="btn btn-lg btn-danger" onClick={handleSave}>
-//                         Save
-//                     </button>
-//                 </Col>
-//             </Row>
-//         </div>
-//     );
-// }

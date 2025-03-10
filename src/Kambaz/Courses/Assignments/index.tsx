@@ -6,6 +6,17 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import { Link, useParams } from "react-router";
 import { useSelector } from "react-redux";
 
+// TODO - date is off by 1 day 
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  };
+  return date.toLocaleDateString(undefined, options);
+}
+
 export default function Assignments() {
   const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -13,7 +24,7 @@ export default function Assignments() {
 
   return (
     <div>
-      <AssignmentsControls/><br /><br /><br /><br />
+      <AssignmentsControls /><br /><br /><br /><br />
       <ul id="wd-assignments" className="list-group rounded-0 p-3">
         {currentUser.role == "FACULTY" &&
           <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
@@ -37,7 +48,7 @@ export default function Assignments() {
                       <div>
                         <strong>{assignment.title}</strong>
                         <div className="text-muted small">
-                          <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> May 6 at 12:00am | <strong>Due</strong> May 13 at 11:59pm | 100 pts
+                          <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> {formatDate(assignment.availableDate)} | <strong>Due</strong> {formatDate(assignment.dueDate)} | {assignment.points} pts
                         </div>
                       </div>
                     </Link>
