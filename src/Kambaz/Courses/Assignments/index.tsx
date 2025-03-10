@@ -4,15 +4,16 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 import { PiNotePencilBold } from "react-icons/pi";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { Link, useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteAssignment } from "./reducer";
 
-// TODO - date is off by 1 day 
+// TODO - date is off by 1 day
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
   return date.toLocaleDateString(undefined, options);
 }
@@ -21,12 +22,17 @@ export default function Assignments() {
   const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+  const dispatch = useDispatch();
 
   return (
     <div>
-      <AssignmentsControls /><br /><br /><br /><br />
+      <AssignmentsControls />
+      <br />
+      <br />
+      <br />
+      <br />
       <ul id="wd-assignments" className="list-group rounded-0 p-3">
-        {currentUser.role == "FACULTY" &&
+        {currentUser.role == "FACULTY" && (
           <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
             <div className="wd-title p-3 ps-2 bg-light">
               <BsGripVertical className="me-2 fs-3" />
@@ -37,10 +43,11 @@ export default function Assignments() {
               {assignments
                 .filter((assignment: any) => assignment.course === cid)
                 .map((assignment: any) => (
-
-
                   <li className="wd-lesson list-group-item p-3 ps-1 d-flex align-items-center">
-                    <Link to={`${assignment._id}`} className="text-decoration-none text-dark align-items-center d-flex">
+                    <Link
+                      to={`${assignment._id}`}
+                      className="text-decoration-none text-dark align-items-center d-flex"
+                    >
                       <div className="d-flex align-items-center me-2">
                         <BsGripVertical className="me-2 fs-3" />
                         <PiNotePencilBold className="fs-4 text-success me-2" />
@@ -48,19 +55,30 @@ export default function Assignments() {
                       <div>
                         <strong>{assignment.title}</strong>
                         <div className="text-muted small">
-                          <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> {formatDate(assignment.availableDate)} | <strong>Due</strong> {formatDate(assignment.dueDate)} | {assignment.points} pts
+                          <span className="text-danger">Multiple Modules</span>{" "}
+                          | <strong>Not available until</strong>{" "}
+                          {formatDate(assignment.availableDate)} |{" "}
+                          <strong>Due</strong> {formatDate(assignment.dueDate)}{" "}
+                          | {assignment.points} pts
                         </div>
                       </div>
                     </Link>
                     <div className="ms-auto">
-                      <LessonControlButtons />
+                      <LessonControlButtons
+                        assignmentId={assignment._id}
+                        deleteAssignment={(assignmentId) => {
+                          dispatch(deleteAssignment(assignmentId));
+                        }}
+                        showTrash={true}
+                      />
                     </div>
                   </li>
                 ))}
             </ul>
-          </li>}
+          </li>
+        )}
         {/* student view of assignments */}
-        {currentUser.role == "STUDENT" &&
+        {currentUser.role == "STUDENT" && (
           <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
             <div className="wd-title p-3 ps-2 bg-light">
               <strong>ASSIGNMENTS</strong>
@@ -70,7 +88,10 @@ export default function Assignments() {
                 .filter((assignment: any) => assignment.course === cid)
                 .map((assignment: any) => (
                   <li className=" list-group-item p-3 ps-1 d-flex align-items-center">
-                    <Link to={`${assignment._id}`} className="text-decoration-none text-dark align-items-center d-flex">
+                    <Link
+                      to={`${assignment._id}`}
+                      className="text-decoration-none text-dark align-items-center d-flex"
+                    >
                       <div>
                         <strong>{assignment.title}</strong>
                       </div>
@@ -78,7 +99,8 @@ export default function Assignments() {
                   </li>
                 ))}
             </ul>
-          </li>}
+          </li>
+        )}
       </ul>
     </div>
   );

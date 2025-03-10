@@ -5,8 +5,7 @@ import ModuleControlButtons from "./ModuleControlButtons";
 import { BsGripVertical } from "react-icons/bs";
 import { useState } from "react";
 import { FormControl } from "react-bootstrap";
-import { addModule, editModule, updateModule, deleteModule }
-  from "./reducer";
+import { addModule, editModule, updateModule, deleteModule } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Modules() {
@@ -17,11 +16,18 @@ export default function Modules() {
 
   return (
     <div>
-      <ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={() => {
-        dispatch(addModule({ name: moduleName, course: cid }));
-        setModuleName("");
-      }
-      } /><br /><br /><br /><br />
+      <ModulesControls
+        setModuleName={setModuleName}
+        moduleName={moduleName}
+        addModule={() => {
+          dispatch(addModule({ name: moduleName, course: cid }));
+          setModuleName("");
+        }}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
       <ul id="wd-modules" className="list-group rounded-0 p-3">
         {modules
           .filter((module: any) => module.course === cid)
@@ -31,20 +37,28 @@ export default function Modules() {
                 <BsGripVertical className="me-2 fs-3" />
                 {!module.editing && module.name}
                 {module.editing && (
-                  <FormControl className="w-50 d-inline-block"
-                    onChange={(e) => dispatch(updateModule({ ...module, name: e.target.value }))}
+                  <FormControl
+                    className="w-50 d-inline-block"
+                    onChange={(e) =>
+                      dispatch(
+                        updateModule({ ...module, name: e.target.value })
+                      )
+                    }
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         dispatch(updateModule({ ...module, editing: false }));
                       }
                     }}
-                    defaultValue={module.name} />
+                    defaultValue={module.name}
+                  />
                 )}
-                <ModuleControlButtons moduleId={module._id}
+                <ModuleControlButtons
+                  moduleId={module._id}
                   deleteModule={(moduleId) => {
                     dispatch(deleteModule(moduleId));
                   }}
-                  editModule={(moduleId) => dispatch(editModule(moduleId))} />
+                  editModule={(moduleId) => dispatch(editModule(moduleId))}
+                />
               </div>
               {module.lessons && (
                 <ul className="wd-lessons list-group rounded-0">
@@ -52,13 +66,21 @@ export default function Modules() {
                     <li className="wd-lesson list-group-item p-3 ps-1">
                       <BsGripVertical className="me-2 fs-3" />
                       {lesson.name}
-                      <LessonControlButtons />
+                      {/* wer reuse this component but don't want to show the trash for each individual module */}
+                      <LessonControlButtons
+                        assignmentId={module._id}
+                        deleteAssignment={(moduleId) => {
+                          dispatch(deleteModule(moduleId));
+                        }}
+                        showTrash={false}
+                      />
                     </li>
                   ))}
                 </ul>
               )}
             </li>
           ))}
-      </ul> </div>
+      </ul>{" "}
+    </div>
   );
 }

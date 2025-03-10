@@ -9,7 +9,7 @@ export default function AssignmentEditor() {
   const { aid, cid } = useParams();
   const navigate = useNavigate();
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const retrievedAssignment = assignments.find(
     (assignment: any) => assignment._id === aid
@@ -29,21 +29,31 @@ export default function AssignmentEditor() {
 
   const handleSave = () => {
     if (retrievedAssignment) {
-        dispatch(updateAssignment(assignment));
-    } else {
-        dispatch(addAssignment(assignment));
+      dispatch(updateAssignment(assignment));
+      navigate(`/Kambaz/Courses/${cid}/Assignments`);
+      // ensure that all fields are filled in before saving assignment
+    } else if (
+      assignment._id &&
+      assignment.title &&
+      assignment.description &&
+      assignment.points &&
+      assignment.dueDate &&
+      assignment.availableDate
+    ) {
+      dispatch(addAssignment(assignment));
+      navigate(`/Kambaz/Courses/${cid}/Assignments`);
     }
-    // nagivate back to the assignments page
-    navigate(`/Kambaz/Courses/${cid}/Assignments`);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     const updatedAssignment = { ...assignment, [name]: value };
 
     setAssignment(updatedAssignment);
     dispatch(updateAssignment(updatedAssignment));
-};
+  };
 
   return (
     <div id="wd-assignments-editor">
@@ -273,15 +283,13 @@ export default function AssignmentEditor() {
           </Link>
         </Col>
         <Col>
-          <Link to={`../Assignments`}>
-            <button
-              id="wd-add-assignment-btn"
-              className="btn btn-lg btn-danger"
-              onClick={handleSave}
-            >
-              Save
-            </button>
-          </Link>
+          <button
+            id="wd-add-assignment-btn"
+            className="btn btn-lg btn-danger"
+            onClick={handleSave}
+          >
+            Save
+          </button>
         </Col>
       </Row>
     </div>
