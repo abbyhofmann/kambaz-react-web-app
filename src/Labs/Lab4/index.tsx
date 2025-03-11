@@ -15,6 +15,8 @@ export default function Lab4() {
     function sayHello() {
         alert("Hello");
       }
+      console.log("Lab4 component mounted");
+
     
     return (
         <div id="wd-lab4">
