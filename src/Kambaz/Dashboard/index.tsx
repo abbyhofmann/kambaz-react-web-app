@@ -8,13 +8,13 @@ import { enroll, unenroll } from "../Courses/enrollmentsReducer";
 export default function Dashboard({
   course,
   setCourse,
-  courseName,
-  courseDescription,
+//   courseName,
+//   courseDescription,
 }: {
   course: any;
   setCourse: (course: any) => void;
-  courseName: string;
-  courseDescription: string;
+//   courseName: string;
+//   courseDescription: string;
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
@@ -55,9 +55,13 @@ export default function Dashboard({
               onClick={() => {
                 dispatch(
                   addCourse({
-                    name: courseName,
-                    description: courseDescription,
+                    name: course.name,
+                    description: course.description,
                   })
+                );
+                dispatch(
+                    enroll({user: currentUser._id,
+                        course: course._id }) // what is the course id (since this is a new course and it is assigned a random course id in the reducer upon creation)
                 );
               }}
             >
