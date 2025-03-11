@@ -2,24 +2,50 @@ import { Link } from "react-router-dom";
 import { Card, Col, FormControl, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addCourse, deleteCourse, updateCourse } from "../Courses/reducer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { enroll, unenroll } from "../Courses/enrollmentsReducer";
 
 export default function Dashboard({
   course,
   setCourse,
-//   courseName,
-//   courseDescription,
 }: {
   course: any;
   setCourse: (course: any) => void;
-//   courseName: string;
-//   courseDescription: string;
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
   const { courses } = useSelector((state: any) => state.coursesReducer);
   const dispatch = useDispatch();
+
+  // keeps track of new course when it gets created
+  const [newlyAddedCourse, setNewlyAddedCourse] = useState<any>(null);
+
+  useEffect(() => {
+    if (newlyAddedCourse) {
+      const addedCourse = courses.find(
+        (c: any) =>
+          c.name === newlyAddedCourse.name &&
+          c.description === newlyAddedCourse.description
+      );
+      // if there is a newly added course, the instructor needs to be enrolled in it show it shows up on faculty dashboard
+      if (addedCourse) {
+        dispatch(
+          enroll({
+            user: currentUser._id,
+            course: addedCourse._id,
+          })
+        );
+        setNewlyAddedCourse(null);
+      }
+    }
+  }, [courses]);
+
+  // adds course to redux store and sets the newlyAddedCourse state variable
+  const handleAddCourse = () => {
+    const newCourse = { name: course.name, description: course.description };
+    dispatch(addCourse(newCourse));
+    setNewlyAddedCourse(newCourse);
+  };
 
   // boolean for determining whether or not to show all the courses offered, or just those the student is enrolled in
   const [showAllCourses, setShowAllCourses] = useState(false);
@@ -52,18 +78,7 @@ export default function Dashboard({
             <button
               className="btn btn-primary float-end"
               id="wd-add-new-course-click"
-              onClick={() => {
-                dispatch(
-                  addCourse({
-                    name: course.name,
-                    description: course.description,
-                  })
-                );
-                dispatch(
-                    enroll({user: currentUser._id,
-                        course: course._id }) // what is the course id (since this is a new course and it is assigned a random course id in the reducer upon creation)
-                );
-              }}
+              onClick={handleAddCourse}
             >
               {" "}
               Add{" "}
