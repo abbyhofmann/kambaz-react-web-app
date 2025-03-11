@@ -49,7 +49,8 @@ export default function AssignmentEditor() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    const updatedAssignment = { ...assignment, [name]: value };
+    const updatedValue = name === "points" ? Number(value) : value;
+    const updatedAssignment = { ...assignment, [name]: updatedValue };
 
     setAssignment(updatedAssignment);
     dispatch(updateAssignment(updatedAssignment));
