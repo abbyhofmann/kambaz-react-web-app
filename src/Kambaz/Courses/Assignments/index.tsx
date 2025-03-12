@@ -7,13 +7,14 @@ import { Link, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAssignment } from "./reducer";
 
-// TODO - date is off by 1 day
+// formats yyyy-mm-dd date into month, day year
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "UTC",
   };
   return date.toLocaleDateString(undefined, options);
 }
