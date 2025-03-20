@@ -20,6 +20,7 @@ export default function WorkingWithObjects() {
         <div id="wd-working-with-objects">
             <h3>Working With Objects</h3>
             <h4>Modifying Properties</h4>
+            {/* assignment title */}
             <a id="wd-update-assignment-title"
                 className="btn btn-primary float-end"
                 href={`${ASSIGNMENT_API_URL}/title/${assignment.title}`}>
@@ -29,6 +30,41 @@ export default function WorkingWithObjects() {
                 defaultValue={assignment.title} onChange={(e) =>
                     setAssignment({ ...assignment, title: e.target.value })} />
             <hr />
+            {/* assignment score */}
+            <a id="wd-update-assignment-score"
+                className="btn btn-primary float-end"
+                href={`${ASSIGNMENT_API_URL}/score/${assignment.score}`}>
+                Update Assignment Score
+            </a>
+            <FormControl className="w-75" id="wd-assignment-score"
+                defaultValue={assignment.score} onChange={(e) =>
+                    setAssignment({ ...assignment, score: parseInt(e.target.value) || 0 })} />
+            <hr />
+            {/* assignment completed */}
+            <a id="wd-update-assignment-completed"
+                className="btn btn-primary float-end"
+                href={`${ASSIGNMENT_API_URL}/completed/${assignment.completed}`}>
+                Update Assignment Completion Status
+            </a>
+            <div>
+                <div className="form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={(e) =>
+                        setAssignment({ ...assignment, completed: true })} />
+                    <label className="form-check-label" htmlFor="flexRadioDefault1">
+                        Completed
+                    </label>
+                </div>
+                <div className="form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" checked disabled onChange={(e) =>
+                        setAssignment({ ...assignment, completed: false })} />
+                    <label className="form-check-label" htmlFor="flexRadioCheckedDisabled">
+                        Not Completed
+                    </label>
+                </div>
+                <hr />
+            </div>
+
+            {/* module name */}
             <a id="wd-update-module-name"
                 className="btn btn-primary float-end"
                 href={`${MODULE_API_URL}/name/${module.name}`}>
@@ -37,6 +73,16 @@ export default function WorkingWithObjects() {
             <FormControl className="w-75" id="wd-module-name"
                 defaultValue={module.name} onChange={(e) =>
                     setModule({ ...module, name: e.target.value })} />
+            <hr />
+            {/* module description */}
+            <a id="wd-update-module-description"
+                className="btn btn-primary float-end"
+                href={`${MODULE_API_URL}/description/${module.description}`}>
+                Update Module Description
+            </a>
+            <FormControl className="w-75" id="wd-module-description"
+                defaultValue={module.description} onChange={(e) =>
+                    setModule({ ...module, description: e.target.value })} />
             <hr />
             <h4>Retrieving Objects</h4>
             <a id="wd-retrieve-assignments" className="btn btn-primary"
