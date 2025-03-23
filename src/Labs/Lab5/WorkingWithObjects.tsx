@@ -48,14 +48,14 @@ export default function WorkingWithObjects() {
             </a>
             <div>
                 <div className="form-check">
-                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={(e) =>
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={assignment.completed === true} onChange={() =>
                         setAssignment({ ...assignment, completed: true })} />
                     <label className="form-check-label" htmlFor="flexRadioDefault1">
                         Completed
                     </label>
                 </div>
                 <div className="form-check">
-                    <input className="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" checked disabled onChange={(e) =>
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioCheckedDisabled" checked={assignment.completed === false} onChange={() =>
                         setAssignment({ ...assignment, completed: false })} />
                     <label className="form-check-label" htmlFor="flexRadioCheckedDisabled">
                         Not Completed
