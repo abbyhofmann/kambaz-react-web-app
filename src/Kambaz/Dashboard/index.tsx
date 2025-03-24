@@ -8,17 +8,21 @@ import { enroll, unenroll } from "../Courses/enrollmentsReducer";
 export default function Dashboard({
   course,
   setCourse,
+  courses,
 }: {
   course: any;
   setCourse: (course: any) => void;
+  courses: any[];
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
-  const { courses } = useSelector((state: any) => state.coursesReducer);
+  // const { courses } = useSelector((state: any) => state.coursesReducer);
+  console.log('courses in dashboard file: ', courses)
   const dispatch = useDispatch();
 
   // keeps track of new course when it gets created
   const [newlyAddedCourse, setNewlyAddedCourse] = useState<any>(null);
+  
 
   useEffect(() => {
     if (newlyAddedCourse) {
@@ -51,14 +55,14 @@ export default function Dashboard({
   const [showAllCourses, setShowAllCourses] = useState(false);
 
   // filter out the enrollments of the current user and map them to the course
-  const enrolledCourses = enrollments
-    .filter((enrollment: any) => enrollment.user === currentUser._id)
-    .map((enrollment: any) => enrollment.course);
+  // const enrolledCourses = enrollments
+  //   .filter((enrollment: any) => enrollment.user === currentUser._id)
+  //   .map((enrollment: any) => enrollment.course);
 
   // list of courses to show (either all or just those the student is enrolled in)
-  const coursesToDisplay = showAllCourses
-    ? courses
-    : courses.filter((course: any) => enrolledCourses.includes(course._id));
+  // const coursesToDisplay = showAllCourses
+  //   ? courses
+  //   : courses.filter((course: any) => enrolledCourses.includes(course._id));
 
   return (
     <div id="wd-dashboard" className="p-2">
@@ -109,13 +113,13 @@ export default function Dashboard({
         </div>
       )}
       <h2 id="wd-dashboard-published">
-        Published Courses ({coursesToDisplay.length})
+        Published Courses ({courses.length})
       </h2>{" "}
       <hr />
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
-          {coursesToDisplay.map((course: any) => {
-            const isEnrolled = enrolledCourses.includes(course._id);
+          {courses.map((course: any) => {
+            const isEnrolled = courses.includes(course._id);
             return (
               <Col
                 className="wd-dashboard-course d-flex"
