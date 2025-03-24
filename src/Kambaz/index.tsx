@@ -14,6 +14,7 @@ import * as userClient from "./Account/client";
 export default function Kambaz() {
   const [courses, setCourses] = useState<any[]>([]);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  
   const fetchCourses = async () => {
     try {
       const courses = await userClient.findMyCourses();
