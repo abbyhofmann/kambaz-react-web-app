@@ -8,6 +8,7 @@ import { useState } from "react";
 import ProtectedRoute from "./Account/ProtectedRoute";
 import { useSelector } from "react-redux";
 import ProtectedCourseRoute from "./Account/ProtectedCourseRoute";
+import Session from "./Account/Session";
 
 export default function Kambaz() {
   const { courses } = useSelector((state: any) => state.coursesReducer);
@@ -22,34 +23,36 @@ export default function Kambaz() {
   });
 
   return (
-    <div id="wd-kambaz">
-      <KambazNavigation />
-      <div className="wd-main-content-offset p-0">
-        <Routes>
-          <Route path="/" element={<Navigate to="Account" />} />
-          <Route path="/Account/*" element={<Account />} />
-          <Route
-            path="/Dashboard"
-            element={
-              // protected so that only logged in users can access the dashboard
-              <ProtectedRoute>
-                <Dashboard course={course} setCourse={setCourse} />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Courses/:cid/*"
-            element={
-              // protected so that only enrolled students can access a course page
-              <ProtectedCourseRoute>
-                <Courses courses={courses} />
-              </ProtectedCourseRoute>
-            }
-          />
-          <Route path="/Calendar" element={<h1>Calendar</h1>} />
-          <Route path="/Inbox" element={<h1>Inbox</h1>} />
-        </Routes>
+    <Session>
+      <div id="wd-kambaz">
+        <KambazNavigation />
+        <div className="wd-main-content-offset p-0">
+          <Routes>
+            <Route path="/" element={<Navigate to="Account" />} />
+            <Route path="/Account/*" element={<Account />} />
+            <Route
+              path="/Dashboard"
+              element={
+                // protected so that only logged in users can access the dashboard
+                <ProtectedRoute>
+                  <Dashboard course={course} setCourse={setCourse} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Courses/:cid/*"
+              element={
+                // protected so that only enrolled students can access a course page
+                <ProtectedCourseRoute>
+                  <Courses courses={courses} />
+                </ProtectedCourseRoute>
+              }
+            />
+            <Route path="/Calendar" element={<h1>Calendar</h1>} />
+            <Route path="/Inbox" element={<h1>Inbox</h1>} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Session>
   );
 }
