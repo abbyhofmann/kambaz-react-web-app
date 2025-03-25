@@ -1,12 +1,14 @@
 import { BsGripVertical } from "react-icons/bs";
 import AssignmentsControls from "./AssignmentsControls";
-import LessonControlButtons from "../Modules/LessonControlButtons";
+import LessonControlButtons from "../Assignments/LessonControlButtons";
 import { PiNotePencilBold } from "react-icons/pi";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { Link, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAssignment } from "./reducer";
+import * as coursesClient from "../client";
 import * as assignmentsClient from "./client";
+import { useEffect } from "react";
 
 // formats yyyy-mm-dd date into month, day year
 function formatDate(dateString: string): string {
@@ -31,6 +33,27 @@ export default function Assignments() {
     dispatch(deleteAssignment(assignmentId));
   };
 
+  const saveAssignment = async (assignment: any) => {
+    await assignmentsClient.updateAssignment(assignment);
+    dispatch(updateAssignment(assignment));
+  };
+
+  const createAssignmentForCourse = async () => {
+    if (!cid) return;
+    const newAssignment = { name: assignmentName, course: cid };
+    const assignment = await coursesClient.createAssignmentForCourse(cid, newAssignment);
+    dispatch(addAssignment(assignment));
+  };
+
+  const fetchAssignments = async () => {
+    const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
   return (
     <div>
       <AssignmentsControls />
@@ -40,7 +63,7 @@ export default function Assignments() {
       <br />
       <ul id="wd-assignments" className="list-group rounded-0 p-3">
         {currentUser.role == "FACULTY" && (
-          <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
+          <li className="wd-assignment list-group-item p-0 mb-5 fs-5 border-gray">
             <div className="wd-title p-3 ps-2 bg-light">
               <BsGripVertical className="me-2 fs-3" />
               <strong>ASSIGNMENTS</strong>
@@ -62,7 +85,7 @@ export default function Assignments() {
                       <div>
                         <strong>{assignment.title}</strong>
                         <div className="text-muted small">
-                          <span className="text-danger">Multiple Modules</span>{" "}
+                          <span className="text-danger">Multiple Assignments</span>{" "}
                           | <strong>Not available until</strong>{" "}
                           {formatDate(assignment.availableDate)} |{" "}
                           <strong>Due</strong> {formatDate(assignment.dueDate)}{" "}
@@ -86,7 +109,7 @@ export default function Assignments() {
         )}
         {/* student view of assignments */}
         {currentUser.role == "STUDENT" && (
-          <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
+          <li className="wd-assignment list-group-item p-0 mb-5 fs-5 border-gray">
             <div className="wd-title p-3 ps-2 bg-light">
               <strong>ASSIGNMENTS</strong>
             </div>
