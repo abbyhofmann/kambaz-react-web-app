@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Card, Col, FormControl, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addCourse, deleteCourse, updateCourse } from "../Courses/reducer";
 import { useEffect, useState } from "react";
 import { enroll, unenroll } from "../Courses/enrollmentsReducer";
 import * as userClient from "./../Account/client";
@@ -52,12 +51,12 @@ export default function Dashboard({
   };
 
   const handleDeleteCourse = async (courseId: string) => {
-    const status = await courseClient.deleteCourse(courseId);
+    await courseClient.deleteCourse(courseId);
     fetchCourses();
   }
 
   const handleUpdateCourse = async () => {
-    const status = await courseClient.updateCourse(course);
+    await courseClient.updateCourse(course);
     fetchCourses();
   }
 

@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 
 export default function Labs() {
   console.log("Current pathname:", window.location.pathname);
-console.log("Lab4 route should match:", window.location.pathname.includes("Lab4"));
+  console.log("Lab4 route should match:", window.location.pathname.includes("Lab4"));
   return (
     <Provider store={store}>
       <div className="p-2">
