@@ -6,6 +6,7 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import { Link, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAssignment } from "./reducer";
+import * as assignmentsClient from "./client";
 
 // formats yyyy-mm-dd date into month, day year
 function formatDate(dateString: string): string {
@@ -24,6 +25,11 @@ export default function Assignments() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const dispatch = useDispatch();
+
+  const removeAssignment = async (assignmentId: string) => {
+    await assignmentsClient.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
 
   return (
     <div>
@@ -68,7 +74,7 @@ export default function Assignments() {
                       <LessonControlButtons
                         assignmentId={assignment._id}
                         deleteAssignment={(assignmentId) => {
-                          dispatch(deleteAssignment(assignmentId));
+                          removeAssignment(assignmentId);
                         }}
                         showTrash={true}
                       />
