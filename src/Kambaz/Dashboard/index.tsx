@@ -56,6 +56,11 @@ export default function Dashboard({
     fetchCourses();
   }
 
+  const handleUpdateCourse = async () => {
+    const status = await courseClient.updateCourse(course);
+    fetchCourses();
+  }
+
   // boolean for determining whether or not to show all the courses offered, or just those the student is enrolled in
   const [showAllCourses, setShowAllCourses] = useState(false);
 
@@ -94,7 +99,7 @@ export default function Dashboard({
             </button>
             <button
               className="btn btn-warning float-end me-2"
-              onClick={() => dispatch(updateCourse({ ...course }))}
+              onClick={handleUpdateCourse}
               id="wd-update-course-click"
             >
               Update
