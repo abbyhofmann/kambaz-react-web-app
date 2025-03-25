@@ -17,7 +17,6 @@ export const findModulesForCourse = async (courseId: string) => {
 
 export const fetchAllCourses = async () => {
   const { data } = await axios.get(COURSES_API);
-  console.log("fetchall courses data: ", data);
   return data;
 };
 
