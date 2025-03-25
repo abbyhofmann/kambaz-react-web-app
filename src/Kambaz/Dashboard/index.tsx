@@ -4,19 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCourse, deleteCourse, updateCourse } from "../Courses/reducer";
 import { useEffect, useState } from "react";
 import { enroll, unenroll } from "../Courses/enrollmentsReducer";
+import * as userClient from "./../Account/client";
 
 export default function Dashboard({
   course,
   setCourse,
   courses,
+  setCourses
 }: {
   course: any;
   setCourse: (course: any) => void;
   courses: any[];
+  setCourses: (courses: any) => void;
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
-  // const { courses } = useSelector((state: any) => state.coursesReducer);
   console.log('courses in dashboard file: ', courses)
   const dispatch = useDispatch();
 
@@ -45,10 +46,10 @@ export default function Dashboard({
   }, [courses]);
 
   // adds course to redux store and sets the newlyAddedCourse state variable
-  const handleAddCourse = () => {
-    const newCourse = { name: course.name, description: course.description };
-    dispatch(addCourse(newCourse));
+  const handleAddCourse = async () => {
+    const newCourse = await userClient.createCourse(course);
     setNewlyAddedCourse(newCourse);
+    setCourses([...courses, newCourse]);
   };
 
   // boolean for determining whether or not to show all the courses offered, or just those the student is enrolled in

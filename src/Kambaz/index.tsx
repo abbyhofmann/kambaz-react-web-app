@@ -51,7 +51,7 @@ export default function Kambaz() {
               element={
                 // protected so that only logged in users can access the dashboard
                 <ProtectedRoute>
-                  <Dashboard course={course} setCourse={setCourse} courses={courses} />
+                  <Dashboard course={course} setCourse={setCourse} courses={courses} setCourses={setCourses} />
                 </ProtectedRoute>
               }
             />
