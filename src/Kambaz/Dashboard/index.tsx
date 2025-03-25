@@ -5,6 +5,7 @@ import { addCourse, deleteCourse, updateCourse } from "../Courses/reducer";
 import { useEffect, useState } from "react";
 import { enroll, unenroll } from "../Courses/enrollmentsReducer";
 import * as userClient from "./../Account/client";
+import * as courseClient from "./../Courses/client";
 
 export default function Dashboard({
   course,
@@ -49,6 +50,11 @@ export default function Dashboard({
     setNewlyAddedCourse(newCourse);
     fetchCourses();
   };
+
+  const handleDeleteCourse = async (courseId: string) => {
+    const status = await courseClient.deleteCourse(courseId);
+    fetchCourses();
+  }
 
   // boolean for determining whether or not to show all the courses offered, or just those the student is enrolled in
   const [showAllCourses, setShowAllCourses] = useState(false);
@@ -127,8 +133,8 @@ export default function Dashboard({
                 <Card className="d-flex flex-column h-100">
                   <img
                     src={`${course._id.toString().charAt(3) === "0"
-                        ? `images/${course._id}.jpeg`
-                        : `images/neu.jpeg`
+                      ? `images/${course._id}.jpeg`
+                      : `images/neu.jpeg`
                       }`}
                     width="100%"
                     height={160}
@@ -193,7 +199,7 @@ export default function Dashboard({
                       <button
                         onClick={(event) => {
                           event.preventDefault();
-                          dispatch(deleteCourse(course._id));
+                          handleDeleteCourse(course._id);
                         }}
                         className="btn btn-danger float-end"
                         id="wd-delete-course-click"

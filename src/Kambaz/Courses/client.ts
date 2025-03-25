@@ -4,12 +4,11 @@ const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 
 export const fetchAllCourses = async () => {
   const { data } = await axios.get(COURSES_API);
-  console.log('fetchall courses data: ', data)
+  console.log("fetchall courses data: ", data);
   return data;
 };
 
 export const deleteCourse = async (id: string) => {
-    const { data } = await axios.delete(`${COURSES_API}/${id}`);
-    return data;
-  };
-  
+  const { data } = await axios.delete(`${COURSES_API}/${id}`);
+  return data;
+};
