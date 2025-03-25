@@ -10,20 +10,18 @@ export default function Dashboard({
   course,
   setCourse,
   courses,
-  setCourses
+  fetchCourses
 }: {
   course: any;
   setCourse: (course: any) => void;
   courses: any[];
-  setCourses: (courses: any) => void;
+  fetchCourses: () => void;
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  console.log('courses in dashboard file: ', courses)
   const dispatch = useDispatch();
 
   // keeps track of new course when it gets created
   const [newlyAddedCourse, setNewlyAddedCourse] = useState<any>(null);
-  
 
   useEffect(() => {
     if (newlyAddedCourse) {
@@ -43,13 +41,13 @@ export default function Dashboard({
         setNewlyAddedCourse(null);
       }
     }
-  }, [courses]);
+  }, [courses, currentUser]);
 
   // adds course to redux store and sets the newlyAddedCourse state variable
   const handleAddCourse = async () => {
     const newCourse = await userClient.createCourse(course);
     setNewlyAddedCourse(newCourse);
-    setCourses([...courses, newCourse]);
+    fetchCourses();
   };
 
   // boolean for determining whether or not to show all the courses offered, or just those the student is enrolled in
@@ -128,11 +126,10 @@ export default function Dashboard({
               >
                 <Card className="d-flex flex-column h-100">
                   <img
-                    src={`${
-                      course._id.toString().charAt(3) === "0"
+                    src={`${course._id.toString().charAt(3) === "0"
                         ? `images/${course._id}.jpeg`
                         : `images/neu.jpeg`
-                    }`}
+                      }`}
                     width="100%"
                     height={160}
                   />

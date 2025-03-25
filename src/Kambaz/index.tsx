@@ -14,7 +14,7 @@ import * as userClient from "./Account/client";
 export default function Kambaz() {
   const [courses, setCourses] = useState<any[]>([]);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  
+
   const fetchCourses = async () => {
     try {
       const courses = await userClient.findMyCourses();
@@ -51,7 +51,7 @@ export default function Kambaz() {
               element={
                 // protected so that only logged in users can access the dashboard
                 <ProtectedRoute>
-                  <Dashboard course={course} setCourse={setCourse} courses={courses} setCourses={setCourses} />
+                  <Dashboard course={course} setCourse={setCourse} courses={courses} fetchCourses={fetchCourses} />
                 </ProtectedRoute>
               }
             />
