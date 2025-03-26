@@ -61,7 +61,7 @@ export default function TOC() {
       <li className="nav-item">
         <a
           id="wd-github"
-          href="https://github.com/jannunzi"
+          href="https://github.com/abbyhofmann/kambaz-react-web-app"
           target="_blank"
           className="nav-link"
         >
