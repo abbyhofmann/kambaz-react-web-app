@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import ProtectedCourseRoute from "./Account/ProtectedCourseRoute";
 import Session from "./Account/Session";
 import * as userClient from "./Account/client";
+import * as coursesClient from "./Courses/client";
 
 export default function Kambaz() {
   const [courses, setCourses] = useState<any[]>([]);
@@ -17,7 +18,9 @@ export default function Kambaz() {
 
   const fetchCourses = async () => {
     try {
-      const courses = await userClient.findMyCourses();
+      // API returns all the courses, which allows for enrollment functionality by the student
+      const courses = await coursesClient.fetchAllCourses();
+      // const courses = await userClient.findMyCourses();
       setCourses(courses);
     } catch (error) {
       console.error(error);

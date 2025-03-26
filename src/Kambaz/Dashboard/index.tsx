@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import { Card, Col, FormControl, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { enroll, unenroll } from "../Courses/enrollmentsReducer";
+import { enroll, unenroll, setEnrollments } from "../Courses/Enrollments/enrollmentsReducer";
 import * as userClient from "./../Account/client";
 import * as courseClient from "./../Courses/client";
+import * as enrollmentClient from "./../Courses/Enrollments/client";
 
 export default function Dashboard({
   course,
@@ -18,7 +19,36 @@ export default function Dashboard({
   fetchCourses: () => void;
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
   const dispatch = useDispatch();
+
+  const handleEnroll = async (courseId: string) => {
+    await enrollmentClient.enroll({
+      user: currentUser._id,
+      course: courseId,
+    });
+    fetchEnrollments();
+  }
+
+  const handleUnenroll = async (courseId: string) => {
+    await enrollmentClient.unenroll(
+      {
+        user: currentUser._id,
+        course: courseId,
+      }
+    );
+    fetchEnrollments();
+  }
+
+
+  const fetchEnrollments = async () => {
+    const enrollments = await enrollmentClient.fetchAllEnrollments();
+    dispatch(setEnrollments(enrollments));
+  };
+
+  useEffect(() => {
+    fetchEnrollments();
+  }, []);
 
   // keeps track of new course when it gets created
   const [newlyAddedCourse, setNewlyAddedCourse] = useState<any>(null);
@@ -64,14 +94,14 @@ export default function Dashboard({
   const [showAllCourses, setShowAllCourses] = useState(false);
 
   // filter out the enrollments of the current user and map them to the course
-  // const enrolledCourses = enrollments
-  //   .filter((enrollment: any) => enrollment.user === currentUser._id)
-  //   .map((enrollment: any) => enrollment.course);
+  const enrolledCourses = enrollments
+    .filter((enrollment: any) => enrollment.user === currentUser._id)
+    .map((enrollment: any) => enrollment.course);
 
   // list of courses to show (either all or just those the student is enrolled in)
-  // const coursesToDisplay = showAllCourses
-  //   ? courses
-  //   : courses.filter((course: any) => enrolledCourses.includes(course._id));
+  const coursesToDisplay = showAllCourses
+    ? courses
+    : courses.filter((course: any) => enrolledCourses.includes(course._id));
 
   return (
     <div id="wd-dashboard" className="p-2">
@@ -122,13 +152,16 @@ export default function Dashboard({
         </div>
       )}
       <h2 id="wd-dashboard-published">
-        Published Courses ({courses.length})
+        Published Courses ({coursesToDisplay.length})
       </h2>{" "}
       <hr />
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
-          {courses.map((course: any) => {
-            const isEnrolled = courses.includes(course._id);
+          {coursesToDisplay.map((course: any) => {
+            const isEnrolled = enrollments.some(
+              (enrollment: any) =>
+                enrollment.user === currentUser._id && enrollment.course === course._id
+            );
             return (
               <Col
                 className="wd-dashboard-course d-flex"
@@ -165,14 +198,7 @@ export default function Dashboard({
                     {currentUser.role === "STUDENT" && isEnrolled ? (
                       <button
                         className="btn btn-danger float-end"
-                        onClick={() =>
-                          dispatch(
-                            unenroll({
-                              user: currentUser._id,
-                              course: course._id,
-                            })
-                          )
-                        }
+                        onClick={() => handleUnenroll(course._id)}
                       >
                         Unenroll
                       </button>
@@ -180,14 +206,7 @@ export default function Dashboard({
                       currentUser.role === "STUDENT" && (
                         <button
                           className="btn btn-success float-end"
-                          onClick={() =>
-                            dispatch(
-                              enroll({
-                                user: currentUser._id,
-                                course: course._id,
-                              })
-                            )
-                          }
+                          onClick={() => handleEnroll(course._id)}
                         >
                           Enroll
                         </button>
