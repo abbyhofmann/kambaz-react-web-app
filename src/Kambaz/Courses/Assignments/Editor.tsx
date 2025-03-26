@@ -4,12 +4,33 @@ import { Link, useNavigate, useParams } from "react-router";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignment, updateAssignment } from "./reducer";
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 
 export default function AssignmentEditor() {
   const { aid, cid } = useParams();
   const navigate = useNavigate();
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const dispatch = useDispatch();
+
+  const saveAssignment = async (assignment: any) => {
+    await assignmentsClient.updateAssignment(assignment);
+    dispatch(updateAssignment(assignment));
+  };
+
+  const createAssignmentForCourse = async () => {
+    if (!cid) return;
+    const newAssignment = {
+      title: assignment.title,
+      course: cid,
+      description: assignment.description,
+      points: assignment.points,
+      dueDate: assignment.dueDate,
+      availableDate: assignment.availableDate,
+    };
+    const createdAssignment = await coursesClient.createAssignmentForCourse(cid, newAssignment);
+    dispatch(addAssignment(createdAssignment));
+  };
 
   const retrievedAssignment = assignments.find(
     (assignment: any) => assignment._id === aid
@@ -29,7 +50,7 @@ export default function AssignmentEditor() {
 
   const handleSave = () => {
     if (retrievedAssignment) {
-      dispatch(updateAssignment(assignment));
+      saveAssignment(assignment);
       navigate(`/Kambaz/Courses/${cid}/Assignments`);
       // ensure that all fields are filled in before saving assignment
     } else if (
@@ -40,7 +61,7 @@ export default function AssignmentEditor() {
       assignment.dueDate &&
       assignment.availableDate
     ) {
-      dispatch(addAssignment(assignment));
+      createAssignmentForCourse();
       navigate(`/Kambaz/Courses/${cid}/Assignments`);
     }
   };

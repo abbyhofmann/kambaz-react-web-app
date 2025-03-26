@@ -1,11 +1,11 @@
 import { BsGripVertical } from "react-icons/bs";
 import AssignmentsControls from "./AssignmentsControls";
-import LessonControlButtons from "../Assignments/LessonControlButtons";
+import LessonControlButtons from "../Modules/LessonControlButtons";
 import { PiNotePencilBold } from "react-icons/pi";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { Link, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAssignment } from "./reducer";
+import { setAssignments, deleteAssignment } from "./reducer";
 import * as coursesClient from "../client";
 import * as assignmentsClient from "./client";
 import { useEffect } from "react";
@@ -31,18 +31,6 @@ export default function Assignments() {
   const removeAssignment = async (assignmentId: string) => {
     await assignmentsClient.deleteAssignment(assignmentId);
     dispatch(deleteAssignment(assignmentId));
-  };
-
-  const saveAssignment = async (assignment: any) => {
-    await assignmentsClient.updateAssignment(assignment);
-    dispatch(updateAssignment(assignment));
-  };
-
-  const createAssignmentForCourse = async () => {
-    if (!cid) return;
-    const newAssignment = { name: assignmentName, course: cid };
-    const assignment = await coursesClient.createAssignmentForCourse(cid, newAssignment);
-    dispatch(addAssignment(assignment));
   };
 
   const fetchAssignments = async () => {
@@ -71,7 +59,6 @@ export default function Assignments() {
             </div>
             <ul className="wd-lessons list-group rounded-0">
               {assignments
-                .filter((assignment: any) => assignment.course === cid)
                 .map((assignment: any) => (
                   <li className="wd-lesson list-group-item p-3 ps-1 d-flex align-items-center">
                     <Link
@@ -96,7 +83,7 @@ export default function Assignments() {
                     <div className="ms-auto">
                       <LessonControlButtons
                         assignmentId={assignment._id}
-                        deleteAssignment={(assignmentId) => {
+                        deleteAssignment={(assignmentId: any) => {
                           removeAssignment(assignmentId);
                         }}
                         showTrash={true}
