@@ -9,7 +9,6 @@ import ProtectedRoute from "./Account/ProtectedRoute";
 import { useSelector } from "react-redux";
 import ProtectedCourseRoute from "./Account/ProtectedCourseRoute";
 import Session from "./Account/Session";
-import * as userClient from "./Account/client";
 import * as coursesClient from "./Courses/client";
 
 export default function Kambaz() {

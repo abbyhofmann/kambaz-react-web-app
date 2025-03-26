@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Card, Col, FormControl, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { enroll, unenroll, setEnrollments } from "../Courses/Enrollments/enrollmentsReducer";
+import { setEnrollments } from "../Courses/Enrollments/enrollmentsReducer";
 import * as userClient from "./../Account/client";
 import * as courseClient from "./../Courses/client";
 import * as enrollmentClient from "./../Courses/Enrollments/client";
@@ -54,23 +54,25 @@ export default function Dashboard({
   const [newlyAddedCourse, setNewlyAddedCourse] = useState<any>(null);
 
   useEffect(() => {
-    if (newlyAddedCourse) {
-      const addedCourse = courses.find(
-        (c: any) =>
-          c.name === newlyAddedCourse.name &&
-          c.description === newlyAddedCourse.description
-      );
-      // if there is a newly added course, the instructor needs to be enrolled in it show it shows up on faculty dashboard
-      if (addedCourse) {
-        dispatch(
-          enroll({
+    const fetchData = async () => {
+      if (newlyAddedCourse) {
+        const addedCourse = courses.find(
+          (c: any) =>
+            c.name === newlyAddedCourse.name &&
+            c.description === newlyAddedCourse.description
+        );
+        // if there is a newly added course, the instructor needs to be enrolled in it show it shows up on faculty dashboard
+        if (addedCourse) {
+          await enrollmentClient.enroll({
             user: currentUser._id,
             course: addedCourse._id,
-          })
-        );
-        setNewlyAddedCourse(null);
+          });
+          await fetchEnrollments();
+          setNewlyAddedCourse(null);
+        }
       }
     }
+    fetchData();
   }, [courses, currentUser]);
 
   // adds course to redux store and sets the newlyAddedCourse state variable
