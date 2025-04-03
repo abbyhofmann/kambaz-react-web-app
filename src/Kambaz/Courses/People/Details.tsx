@@ -45,6 +45,7 @@ export default function PeopleDetails() {
       <button onClick={() => navigate(-1)} className="btn position-fixed end-0 top-0 wd-close-details">
         <IoCloseSharp className="fs-1" /> </button>
       <div className="text-center mt-2"> <FaUserCircle className="text-secondary me-2 fs-1" /> </div><hr />
+      {/* name */}
       <div className="text-danger fs-4 wd-name">
         {!editing && (
           <FaPencil onClick={() => setEditing(true)}
@@ -65,6 +66,7 @@ export default function PeopleDetails() {
             }} />)}
       </div>
 
+      {/* email */}
       <div className="text-danger fs-4 wd-email">
         {!editing && (
           <FaPencil onClick={() => setEditing(true)}
@@ -78,6 +80,7 @@ export default function PeopleDetails() {
             {user.email} </div>)}
         {user && editing && (
           <FormControl className="w-50 wd-edit-email"
+            type="email"
             defaultValue={`${user.email}`}
             onChange={(e) => setEmail(e.target.value)}
             onKeyDown={(e) => {
@@ -85,6 +88,7 @@ export default function PeopleDetails() {
             }} />)}
       </div>
 
+      {/* role */}
       <div className="text-danger fs-4 wd-roles">
         {!editing && (
           <FaPencil onClick={() => setEditing(true)}
