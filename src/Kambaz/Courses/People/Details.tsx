@@ -10,10 +10,13 @@ export default function PeopleDetails() {
   const { uid } = useParams();
   const [user, setUser] = useState<any>({});
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [editing, setEditing] = useState(false);
+
   const saveUser = async () => {
     const [firstName, lastName] = name.split(" ");
-    const updatedUser = { ...user, firstName, lastName };
+    const updatedUser = { ...user, firstName, lastName, email, role };
     await client.updateUser(updatedUser);
     setUser(updatedUser);
     setEditing(false);
@@ -61,7 +64,52 @@ export default function PeopleDetails() {
               if (e.key === "Enter") { saveUser(); }
             }} />)}
       </div>
-      <b>Roles:</b>           <span className="wd-roles">         {user.role}         </span> <br />
+
+      <div className="text-danger fs-4 wd-email">
+        {!editing && (
+          <FaPencil onClick={() => setEditing(true)}
+            className="float-end fs-5 mt-2 wd-edit" />)}
+        {editing && (
+          <FaCheck onClick={() => saveUser()}
+            className="float-end fs-5 mt-2 me-2 wd-save" />)}
+        {!editing && (
+          <div className="wd-email"
+            onClick={() => setEditing(true)}>
+            {user.email} </div>)}
+        {user && editing && (
+          <FormControl className="w-50 wd-edit-email"
+            defaultValue={`${user.email}`}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") { saveUser(); }
+            }} />)}
+      </div>
+
+      <div className="text-danger fs-4 wd-roles">
+        {!editing && (
+          <FaPencil onClick={() => setEditing(true)}
+            className="float-end fs-5 mt-2 wd-roles" />)}
+        {editing && (
+          <FaCheck onClick={() => saveUser()}
+            className="float-end fs-5 mt-2 me-2 wd-save" />)}
+        {!editing && (
+          <div className="wd-roles"
+            onClick={() => setEditing(true)}>
+            {user.role} </div>)}
+        {user && editing && (
+          <select className="w-50 wd-edit-role form-select float-start w-25 wd-select-role" value={role} onChange={(e) => setRole(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") { saveUser(); }
+            }}>
+            <option value="">All Roles</option>
+            <option value="STUDENT">Students</option>
+            <option value="TA">Assistants</option>
+            <option value="FACULTY">Faculty</option>
+            <option value="ADMIN">Administrators</option>
+          </select>
+        )}
+
+      </div>
       <b>Login ID:</b>        <span className="wd-login-id">      {user.loginId}      </span> <br />
       <b>Section:</b>         <span className="wd-section">       {user.section}      </span> <br />
       <b>Total Activity:</b>  <span className="wd-total-activity">{user.totalActivity}</span>
