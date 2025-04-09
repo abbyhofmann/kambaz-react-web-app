@@ -25,11 +25,12 @@ export default function Modules() {
     dispatch(deleteModule(moduleId));
   };
 
-  const createModuleForCourse = async () => {
+  const addModuleHandler = async () => {
     if (!cid) return;
     const newModule = { name: moduleName, course: cid };
     const module = await coursesClient.createModuleForCourse(cid, newModule);
     dispatch(addModule(module));
+    setModuleName("");
   };
 
   const fetchModules = async () => {
@@ -48,7 +49,7 @@ export default function Modules() {
       <ModulesControls
         setModuleName={setModuleName}
         moduleName={moduleName}
-        addModule={createModuleForCourse}
+        addModule={addModuleHandler}
       />
       <br />
       <br />
