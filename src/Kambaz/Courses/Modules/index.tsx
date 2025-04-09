@@ -33,13 +33,13 @@ export default function Modules() {
   };
 
   const fetchModules = async () => {
-    const modules = await coursesClient.findModulesForCourse(cid as string);
+    const modules = await coursesClient.findModulesForCourse(cid!);
     dispatch(setModules(modules));
   };
 
   useEffect(() => {
     fetchModules();
-  }, []);
+  }, [cid]);
 
   const [moduleName, setModuleName] = useState("");
 
