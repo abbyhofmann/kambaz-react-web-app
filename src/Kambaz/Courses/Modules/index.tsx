@@ -15,7 +15,8 @@ export default function Modules() {
   const { modules } = useSelector((state: any) => state.modulesReducer);
   const dispatch = useDispatch();
 
-  const saveModule = async (module: any) => {
+  // update module handler
+  const saveModuleHandler = async (module: any) => {
     await modulesClient.updateModule(module);
     dispatch(updateModule(module));
   };
@@ -68,13 +69,12 @@ export default function Modules() {
                   <FormControl
                     className="w-50 d-inline-block"
                     onChange={(e) =>
-                      dispatch(
-                        updateModule({ ...module, name: e.target.value })
-                      )
+                      saveModuleHandler({ ...module, name: e.target.value })
+
                     }
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        saveModule({ ...module, editing: false });
+                        saveModuleHandler({ ...module, editing: false });
                       }
                     }}
                     defaultValue={module.name}
