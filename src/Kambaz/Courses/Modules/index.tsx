@@ -20,11 +20,13 @@ export default function Modules() {
     dispatch(updateModule(module));
   };
 
-  const removeModule = async (moduleId: string) => {
+  // delete module handler
+  const removeModuleHandler = async (moduleId: string) => {
     await modulesClient.deleteModule(moduleId);
     dispatch(deleteModule(moduleId));
   };
 
+  // create module handler
   const addModuleHandler = async () => {
     if (!cid) return;
     const newModule = { name: moduleName, course: cid };
@@ -81,7 +83,7 @@ export default function Modules() {
                 <ModuleControlButtons
                   moduleId={module._id}
                   deleteModule={(moduleId) => {
-                    removeModule(moduleId);
+                    removeModuleHandler(moduleId);
                   }}
                   editModule={(moduleId) => dispatch(editModule(moduleId))}
                 />
