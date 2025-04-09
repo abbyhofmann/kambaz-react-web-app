@@ -77,7 +77,7 @@ export default function Dashboard({
 
   // adds course to redux store and sets the newlyAddedCourse state variable
   const handleAddCourse = async () => {
-    const newCourse = await userClient.createCourse(course);
+    const newCourse = await courseClient.createCourse(course);
     setNewlyAddedCourse(newCourse);
     fetchCourses();
   };

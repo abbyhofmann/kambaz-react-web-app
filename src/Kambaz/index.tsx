@@ -19,7 +19,6 @@ export default function Kambaz() {
     try {
       // API returns all the courses, which allows for enrollment functionality by the student
       const courses = await coursesClient.fetchAllCourses();
-      // const courses = await userClient.findMyCourses();
       setCourses(courses);
     } catch (error) {
       console.error(error);
