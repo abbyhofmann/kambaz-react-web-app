@@ -8,11 +8,25 @@ import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
 import DarkNavbar from "./DarkNavbar";
 import ProtectedCoursesRoute from "./ProtectedCoursesRoute";
+import { useEffect, useState } from "react";
+import * as coursesClient from "../Courses/client.ts";
 
 export default function Courses({ courses }: { courses: any[] }) {
     const { cid } = useParams();
     const course = courses.find((course) => course._id === cid);
     const { pathname } = useLocation();
+
+    const [users, setUsers] = useState<any[]>([]);
+
+    // only fetch users enrolled in course
+    const fetchUsers = async () => {
+        const users = await coursesClient.findUsersForCourse(cid!);
+        setUsers(users);
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, [cid]);
 
     return (
         <div id="wd-courses">
@@ -38,7 +52,7 @@ export default function Courses({ courses }: { courses: any[] }) {
                         <Route path="Modules" element={<Modules />} />
                         <Route path="Assignments" element={<Assignments />} />
                         <Route path="Assignments/:aid" element={<ProtectedCoursesRoute><AssignmentEditor /></ProtectedCoursesRoute>} />
-                        <Route path="People" element={<PeopleTable />} />
+                        <Route path="People" element={<PeopleTable users={users} />} />
                     </Routes>
                 </div>
             </div>
