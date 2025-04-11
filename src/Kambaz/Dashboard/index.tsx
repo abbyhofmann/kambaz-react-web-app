@@ -3,7 +3,6 @@ import { Card, Col, FormControl, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setEnrollments } from "../Courses/Enrollments/enrollmentsReducer";
-import * as userClient from "./../Account/client";
 import * as courseClient from "./../Courses/client";
 import * as enrollmentClient from "./../Courses/Enrollments/client";
 
