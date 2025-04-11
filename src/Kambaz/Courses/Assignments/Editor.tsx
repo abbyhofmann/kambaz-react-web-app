@@ -42,8 +42,8 @@ export default function AssignmentEditor() {
     course: cid!,
     description: "",
     points: "",
-    dueDate: "",
-    availableDate: "",
+    dueDate: new Date(),
+    availableDate: new Date(),
   };
 
   const [assignment, setAssignment] = useState(initAssignment);
