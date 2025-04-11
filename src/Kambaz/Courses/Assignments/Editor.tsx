@@ -77,6 +77,12 @@ export default function AssignmentEditor() {
     dispatch(updateAssignment(updatedAssignment));
   };
 
+  // needed to format date for db endpoint to work 
+  const formatDateForInput = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];  // "2025-01-13"
+  };
+
   return (
     <div id="wd-assignments-editor">
       <Row className="px-4">
@@ -251,7 +257,7 @@ export default function AssignmentEditor() {
                 <InputGroup>
                   <FormControl
                     name="dueDate"
-                    value={`${assignment.dueDate}`}
+                    value={`${formatDateForInput(assignment.dueDate)}`}
                     type="date"
                     onChange={handleChange}
                   />
@@ -265,7 +271,7 @@ export default function AssignmentEditor() {
                   <InputGroup>
                     <FormControl
                       name="availableDate"
-                      value={`${assignment.availableDate}`}
+                      value={`${formatDateForInput(assignment.availableDate)}`}
                       type="date"
                       onChange={handleChange}
                     />
@@ -278,7 +284,7 @@ export default function AssignmentEditor() {
                   <InputGroup>
                     <FormControl
                       name="dueDate"
-                      value={`${assignment.dueDate}`}
+                      value={`${formatDateForInput(assignment.dueDate)}`}
                       type="date"
                       onChange={handleChange}
                     />
